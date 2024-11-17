@@ -5,15 +5,21 @@ import viteLogo from '/vite.svg'
 export class MyElement extends LitElement {
   static get properties() {
     return {
-        docsHint: { type: String },
-        count: { type: Number },
+        //**Para setear atributos desde afuerra usar etiqueta "atrtribute" y renombrar sin camelCase
+        docsHint: { type: String, attribute: "docs-hint" },
+        //**Original
+        //count: { type: Number},
+        //**Refleja valor de propiedad en atributo.
+        //count: { type: Number, reflect: true },
+        //**Estados - Similar UseState/privado.
+        _count: { type: Number, state: true},
     }
   }
 
   constructor() {
     super()
     this.docsHint = 'Click on the Vite and Lit logos to learn more'
-    this.count = 0
+    this._count = 0
   }
 
   render() {
@@ -29,7 +35,7 @@ export class MyElement extends LitElement {
       <slot></slot>
       <div class="card">
         <button @click=${this._onClick} part="button">
-          count is ${this.count}
+          count is ${this._count}
         </button>
       </div>
       <p class="read-the-docs">${this.docsHint}</p>
@@ -37,7 +43,7 @@ export class MyElement extends LitElement {
   }
 
   _onClick() {
-    this.count++
+    this._count++
   }
 
   static get styles() {
